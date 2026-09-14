@@ -1,6 +1,6 @@
 # 🌟 羅志緯 (David Lo) — Modern Personal Page (0914_PersonalPage)
 
-> 國立中興大學 人工智慧與資訊系統 (NCHU AIIS)
+> 國立中興大學 人工智慧與資訊安全 (NCHU AIIS)
 > 兼具極致流暢微光玻璃擬態 (Glassmorphism) 與動態互動美學的現代化個人首頁。
 
 [![GitHub repo](https://img.shields.io/badge/GitHub-davidlo3917%2F0914__PersonalPage-blue?logo=github)](https://github.com/davidlo3917/0914_PersonalPage)
