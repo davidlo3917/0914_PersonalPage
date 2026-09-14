@@ -168,11 +168,21 @@ body {
   position: relative;
   z-index: 10;
   max-width: 1240px;
+  width: 100%;
   margin: 0 auto;
   padding: 32px 24px 64px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
 }
 
 /* Navigation Bar */
@@ -313,30 +323,20 @@ body {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
-  padding: 38px 40px;
+  padding: 32px;
   box-shadow: var(--glass-shadow);
   position: relative;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
   transition: transform 0.2s ease-out, box-shadow 0.3s ease;
   transform-style: preserve-3d;
 }
 
 .hero-card:hover {
   box-shadow: var(--glass-shadow-hover);
-}
-
-.hero-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
 }
 
 .hero-content {
@@ -1247,9 +1247,13 @@ body {
    Responsive Adjustments
    ========================================================================== */
 @media (max-width: 768px) {
+  .app-container,
+  main {
+    gap: 16px;
+  }
+  
   .app-container {
     padding: 16px 12px 48px;
-    gap: 16px;
   }
   
   .hero-card {
