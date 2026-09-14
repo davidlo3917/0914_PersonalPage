@@ -1,4 +1,4 @@
-# 🌟 David Lo — Modern Personal Page (0914_PersonalPage)
+# 🌟 羅志緯 (David Lo) — Modern Personal Page (0914_PersonalPage)
 
 > 國立中興大學 人工智慧與資訊系統 (NCHU AIIS)
 > 兼具極致流暢微光玻璃擬態 (Glassmorphism) 與動態互動美學的現代化個人首頁。
@@ -86,4 +86,4 @@ npx serve .
 
 ---
 
-© 2026 David Lo (國立中興大學 AIIS) • All Rights Reserved.
+© 2026 羅志緯 (David Lo) • 國立中興大學 AIIS • All Rights Reserved.

@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: 'David Lo | 個人主頁與台灣即時氣象',
+            title: '羅志緯 (David Lo) | 個人主頁與台灣即時氣象',
             text: '查看即時台灣繁體中文時間與台中即時氣象！',
             url: window.location.href
           });
@@ -127,5 +127,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  console.log('✨ David Lo Personal Page loaded smoothly with Taiwan DateTime & Open-Meteo Weather.');
+  console.log('✨ 羅志緯 (David Lo) Personal Page loaded smoothly with Taiwan DateTime & Open-Meteo Weather.');
 });
