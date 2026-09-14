@@ -410,18 +410,6 @@ main {
   vertical-align: middle;
 }
 
-.hero-bio {
-  font-size: 1.05rem;
-  color: var(--text-secondary);
-  max-width: 620px;
-  font-weight: 400;
-  line-height: 1.6;
-}
-
-.hero-bio strong {
-  color: var(--accent-blue);
-  font-weight: 600;
-}
 
 .hero-tags {
   display: flex;
