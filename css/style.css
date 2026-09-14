@@ -508,14 +508,16 @@ body {
    ========================================================================== */
 .main-grid {
   display: grid;
-  grid-template-columns: 460px 1fr;
+  grid-template-columns: 440px minmax(0, 1fr);
   gap: 24px;
   align-items: stretch;
+  width: 100%;
+  min-width: 0;
 }
 
 @media (max-width: 1100px) {
   .main-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -531,6 +533,9 @@ body {
   position: relative;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   transform-style: preserve-3d;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .glass-panel:hover {
@@ -794,6 +799,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
 }
 
 /* City Selector Bar */
@@ -939,13 +947,15 @@ body {
 /* Weather Metrics Grid */
 .weather-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
+  width: 100%;
+  min-width: 0;
 }
 
 @media (max-width: 640px) {
   .weather-metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -959,6 +969,7 @@ body {
   gap: 5px;
   transition: var(--transition-fast);
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
+  min-width: 0;
 }
 
 .metric-card:hover {
@@ -981,6 +992,9 @@ body {
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .metric-unit {
@@ -993,6 +1007,9 @@ body {
   font-size: 0.72rem;
   color: var(--accent-teal);
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Hourly Forecast Strip */
@@ -1000,6 +1017,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .section-label-row {
@@ -1020,6 +1041,10 @@ body {
   padding: 4px 2px 10px;
   scrollbar-width: thin;
   scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .hourly-scroll-strip::-webkit-scrollbar {
@@ -1076,13 +1101,15 @@ body {
 /* 5-Day Daily Outlook */
 .daily-outlook-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
+  width: 100%;
+  min-width: 0;
 }
 
 @media (max-width: 640px) {
   .daily-outlook-list {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
