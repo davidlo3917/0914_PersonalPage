@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Weather Icon Animations & Dynamic Visual FX
+   ========================================================================== */
+
+/* Sun Animation */
+.anim-sun {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anim-sun-core {
+  width: 44px;
+  height: 44px;
+  background: radial-gradient(circle, #fde047 30%, #f59e0b 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.65);
+  animation: sunPulse 4s ease-in-out infinite alternate;
+}
+
+.anim-sun-rays {
+  position: absolute;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 3px dashed rgba(251, 191, 36, 0.7);
+  animation: sunRotate 24s linear infinite;
+}
+
+@keyframes sunRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sunPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 25px rgba(245, 158, 11, 0.5); }
+  100% { transform: scale(1.05); box-shadow: 0 0 45px rgba(245, 158, 11, 0.85); }
+}
+
+/* Cloud Animation */
+.anim-cloud {
+  position: relative;
+  width: 72px;
+  height: 46px;
+  background: linear-gradient(180deg, #ffffff 40%, #e2e8f0 100%);
+  border-radius: 28px;
+  box-shadow: 0 10px 20px rgba(100, 116, 139, 0.15);
+  animation: cloudFloat 5s ease-in-out infinite alternate;
+}
+
+.anim-cloud::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.anim-cloud::after {
+  content: '';
+  position: absolute;
+  top: -24px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+@keyframes cloudFloat {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(-6px) scale(1.02); }
+}
+
+/* Rain Animation */
+.anim-rain-wrap {
+  position: relative;
+  width: 72px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.anim-raindrop {
+  position: absolute;
+  bottom: 0;
+  width: 3px;
+  height: 12px;
+  background: linear-gradient(180deg, transparent, #38bdf8);
+  border-radius: 3px;
+  animation: dropFall 1s linear infinite;
+}
+
+.drop-1 { left: 16px; animation-delay: 0s; }
+.drop-2 { left: 34px; animation-delay: 0.35s; }
+.drop-3 { left: 52px; animation-delay: 0.7s; }
+
+@keyframes dropFall {
+  0% { transform: translateY(-10px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(16px); opacity: 0; }
+}
+
+/* Thunderstorm Flash */
+.anim-thunder-wrap {
+  position: relative;
+  width: 72px;
+  height: 70px;
+}
+
+.anim-lightning-bolt {
+  position: absolute;
+  bottom: 4px;
+  left: 28px;
+  font-size: 26px;
+  color: #fbbf24;
+  filter: drop-shadow(0 0 10px #f59e0b);
+  animation: boltFlash 2.5s infinite;
+}
+
+@keyframes boltFlash {
+  0%, 90%, 100% { opacity: 0; transform: scale(0.8); }
+  92%, 96% { opacity: 1; transform: scale(1.2); }
+  94% { opacity: 0.4; }
+}
+
+/* Mist / Fog Animation */
+.anim-mist-wrap {
+  position: relative;
+  width: 70px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.anim-mist-line {
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, transparent, #94a3b8, transparent);
+  animation: mistDrift 4s ease-in-out infinite alternate;
+}
+
+.mist-1 { width: 50px; margin: 0 auto; animation-delay: 0s; }
+.mist-2 { width: 66px; margin: 0 auto; animation-delay: 1s; }
+.mist-3 { width: 44px; margin: 0 auto; animation-delay: 2s; }
+
+@keyframes mistDrift {
+  0% { transform: translateX(-6px); opacity: 0.5; }
+  100% { transform: translateX(6px); opacity: 0.9; }
+}

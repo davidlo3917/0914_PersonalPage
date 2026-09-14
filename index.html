@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>David Lo — 個人主頁 | 台灣標準時間 & 即時氣象儀表板</title>
+  <meta name="description" content="David Lo (中興大學 AIIS) 的現代化個人首頁，具備台灣繁體中文時間、民國紀年、傳統農曆干支時辰、即時台灣氣象儀表板與高質感微光玻璃擬態設計。">
+  <meta name="theme-color" content="#f4f7fc">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="David Lo — 個人主頁 | 台灣標準時間 & 即時氣象">
+  <meta property="og:description" content="精緻流暢的現代光感 Glassmorphism 個人主頁，支援全台城市即時天氣與完整台灣曆法時間。">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/weather-anim.css">
+</head>
+<body>
+
+  <!-- Dynamic Ambient Canvas Background -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Floating Aurora Orbs -->
+  <div class="aurora-container" aria-hidden="true">
+    <div class="aurora-blob blob-1"></div>
+    <div class="aurora-blob blob-2"></div>
+    <div class="aurora-blob blob-3"></div>
+  </div>
+
+  <!-- Mouse Tracking Glow -->
+  <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Main Application Container -->
+  <div class="app-container">
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar" role="banner">
+      <a href="#" class="brand-badge" id="brand-home-link" aria-label="David Lo 首頁">
+        <div class="brand-avatar">DL</div>
+        <div class="brand-info">
+          <span class="brand-name">David Lo</span>
+          <span class="brand-tag">NCHU AIIS • Personal Hub</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <div class="live-indicator" id="nav-live-status">
+          <span class="live-dot"></span>
+          <span>即時連線中</span>
+        </div>
+        <button type="button" class="nav-pill-btn" id="toggle-sound-btn" title="切換提示音效">
+          🔇 提示音效：關
+        </button>
+        <button type="button" class="nav-pill-btn" id="share-page-btn" title="分享此頁面">
+          🔗 分享頁面
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main role="main">
+
+      <!-- Hero Personal Card -->
+      <section class="hero-card" id="hero-profile-card">
+        <div class="hero-content">
+          <div class="hero-badge-row">
+            <span class="hero-badge">🎓 國立中興大學 NCHU</span>
+            <span class="hero-badge">⚡ 人工智慧與資訊系統 AIIS</span>
+            <div class="greeting-text" id="hero-greeting">
+              <span>👋</span>
+              <span>載入問候中...</span>
+            </div>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="name-gradient" id="user-display-name">David Lo</span>
+            <span class="name-chinese">羅</span>
+          </h1>
+
+          <p class="hero-bio">
+            熱衷於<strong>人工智慧、系統架構與現代化高質感前端體驗</strong>。探索科技前沿，追求極致的美學與高效的數據驅動解決方案。
+          </p>
+
+          <div class="hero-tags">
+            <span class="skill-tag">🤖 Artificial Intelligence</span>
+            <span class="skill-tag">💻 Full-Stack Development</span>
+            <span class="skill-tag">📊 Intelligent Systems</span>
+            <span class="skill-tag">🎨 Modern UI/UX</span>
+            <span class="skill-tag">🌤️ Real-Time Meteorology</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-orb-ring">
+            <div class="hero-avatar-inner">
+              <span class="avatar-icon-symbol">🚀</span>
+              <span class="avatar-status-caption">TAIWAN</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Two-Column Grid: DateTime & Weather -->
+      <div class="main-grid">
+
+        <!-- Column 1: Taiwan Chinese DateTime Card -->
+        <section class="glass-panel" id="datetime-panel" aria-labelledby="datetime-title">
+          <div class="panel-header">
+            <div class="panel-title-wrap">
+              <div class="panel-icon-box icon-clock">🕒</div>
+              <div>
+                <h2 class="panel-title" id="datetime-title">台灣標準時間</h2>
+                <p class="panel-subtitle">Taiwan Standard Time • 繁體中文曆法</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="datetime-container">
+            <!-- Digital Clock Display -->
+            <div class="digital-clock-display">
+              <span class="clock-ampm-badge" id="clock-ampm">下午 PM</span>
+              <div class="clock-time-digits">
+                <span id="clock-hours">20</span>
+                <span class="time-colon">:</span>
+                <span id="clock-minutes">26</span>
+                <span class="time-seconds" id="clock-seconds">58</span>
+              </div>
+              <div class="clock-tz-label">GMT+8 台灣時間 (Asia/Taipei)</div>
+            </div>
+
+            <!-- Date Rows (Western, Minguo, Lunar, Shichen) -->
+            <div class="date-details-grid">
+              <!-- Western Calendar -->
+              <div class="date-row-card">
+                <div class="date-label">
+                  <span class="date-tag-badge badge-west">西元</span>
+                  <span>公曆紀年</span>
+                </div>
+                <div class="date-val" id="date-val-western">西元 2026 年 09 月 14 日 星期一</div>
+              </div>
+
+              <!-- Taiwan Minguo Calendar -->
+              <div class="date-row-card">
+                <div class="date-label">
+                  <span class="date-tag-badge badge-minguo">民國</span>
+                  <span>國曆紀年</span>
+                </div>
+                <div class="date-val" id="date-val-minguo">民國 115 年 09 月 14 日</div>
+              </div>
+
+              <!-- Traditional Lunar Calendar -->
+              <div class="date-row-card">
+                <div class="date-label">
+                  <span class="date-tag-badge badge-lunar">農曆</span>
+                  <span>歲次干支</span>
+                </div>
+                <div class="date-val" id="date-val-lunar">丙午年 【馬年】 八月初四</div>
+              </div>
+
+              <!-- Earthly Branches Shichen -->
+              <div class="date-row-card">
+                <div class="date-label">
+                  <span class="date-tag-badge badge-solar">時辰</span>
+                  <span>十二時辰</span>
+                </div>
+                <div class="date-val" id="date-val-shichen">戌時（19:00 - 21:00 • 黃昏）</div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="datetime-controls">
+              <button type="button" class="toggle-switch-btn" id="toggle-12-24-btn">
+                切換 24 小時制
+              </button>
+              <button type="button" class="copy-btn" id="copy-datetime-btn" title="複製目前台灣時間">
+                📋 複製時間
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Column 2: Taiwan Live Weather Dashboard -->
+        <section class="glass-panel" id="weather-panel" aria-labelledby="weather-title">
+          <div class="panel-header">
+            <div class="panel-title-wrap">
+              <div class="panel-icon-box icon-weather">🌤️</div>
+              <div>
+                <h2 class="panel-title" id="weather-title">台灣即時氣象</h2>
+                <p class="panel-subtitle">Open-Meteo Live Forecast • 即時氣象數據</p>
+              </div>
+            </div>
+            <button type="button" class="nav-pill-btn" id="weather-refresh-btn" title="立即更新氣象">
+              🔄 重新整理
+            </button>
+          </div>
+
+          <div class="weather-container">
+            <!-- Taiwan City Selector Chips -->
+            <div class="city-selector-bar">
+              <div class="city-chips-list" role="tablist">
+                <button type="button" class="city-chip active" data-city="taichung">台中市</button>
+                <button type="button" class="city-chip" data-city="taipei">台北市</button>
+                <button type="button" class="city-chip" data-city="newtaipei">新北市</button>
+                <button type="button" class="city-chip" data-city="taoyuan">桃園市</button>
+                <button type="button" class="city-chip" data-city="hsinchu">新竹市</button>
+                <button type="button" class="city-chip" data-city="tainan">台南市</button>
+                <button type="button" class="city-chip" data-city="kaohsiung">高雄市</button>
+                <button type="button" class="city-chip" data-city="hualien">花蓮縣</button>
+              </div>
+              <button type="button" class="geo-btn" id="geo-locate-btn" title="使用 GPS 定位目前位置">
+                📍 定位我的位置
+              </button>
+            </div>
+
+            <!-- Weather Hero Overview Card -->
+            <div class="weather-hero-card">
+              <div class="weather-location-wrap">
+                <div class="weather-city-name">
+                  <span id="weather-city">台中市</span>
+                </div>
+                <div class="panel-subtitle" id="weather-district">📍 南區 (中興大學校本部)</div>
+                <div class="weather-condition-text" id="weather-condition">
+                  <span>☀️</span>
+                  <span>晴朗無雲</span>
+                </div>
+              </div>
+
+              <div class="weather-temp-wrap">
+                <div>
+                  <span class="temp-huge" id="weather-temp">27</span>
+                  <span class="temp-unit">°C</span>
+                  <div class="temp-range" id="weather-high-low">最高 32° / 最低 25°</div>
+                </div>
+
+                <div class="weather-dynamic-icon" id="weather-anim-container">
+                  <div class="anim-sun">
+                    <div class="anim-sun-rays"></div>
+                    <div class="anim-sun-core"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detailed Weather Metrics Grid -->
+            <div class="weather-metrics-grid">
+              <!-- Apparent Temperature -->
+              <div class="metric-card">
+                <div class="metric-header">
+                  <span>🌡️</span>
+                  <span>體感溫度</span>
+                </div>
+                <div class="metric-value" id="metric-feel">31°C</div>
+                <div class="metric-sub">溫熱舒適</div>
+              </div>
+
+              <!-- Relative Humidity -->
+              <div class="metric-card">
+                <div class="metric-header">
+                  <span>💧</span>
+                  <span>相對濕度</span>
+                </div>
+                <div class="metric-value" id="metric-humidity">78%</div>
+                <div class="metric-sub">稍偏濕潤</div>
+              </div>
+
+              <!-- Wind Speed -->
+              <div class="metric-card">
+                <div class="metric-header">
+                  <span>🍃</span>
+                  <span>地面風速</span>
+                </div>
+                <div class="metric-value" id="metric-wind">7.2 km/h</div>
+                <div class="metric-sub" id="metric-wind-sub">2 級 輕風</div>
+              </div>
+
+              <!-- UV Index -->
+              <div class="metric-card">
+                <div class="metric-header">
+                  <span>☀️</span>
+                  <span>紫外線指數</span>
+                </div>
+                <div class="metric-value" id="metric-uv">6.5</div>
+                <div class="metric-sub" id="metric-uv-sub">中量級 (建議遮陽)</div>
+              </div>
+
+              <!-- Atmospheric Pressure -->
+              <div class="metric-card">
+                <div class="metric-header">
+                  <span>🧭</span>
+                  <span>大氣氣壓</span>
+                </div>
+                <div class="metric-value" id="metric-pressure">1008 hPa</div>
+                <div class="metric-sub">氣壓穩定</div>
+              </div>
+
+              <!-- Precipitation -->
+              <div class="metric-card">
+                <div class="metric-header">
+                  <span>🌧️</span>
+                  <span>降水量</span>
+                </div>
+                <div class="metric-value" id="metric-rain">0.0 mm</div>
+                <div class="metric-sub">降雨機率低</div>
+              </div>
+
+              <!-- Sunrise / Sunset (Spanning 2 columns) -->
+              <div class="metric-card" style="grid-column: span 2;">
+                <div class="metric-header">
+                  <span>🌄</span>
+                  <span>日出 / 日落時間</span>
+                </div>
+                <div class="metric-value" id="metric-sun" style="font-size: 1.05rem;">🌅 05:46 / 🌇 18:02</div>
+                <div class="metric-sub">台灣標準時段</div>
+              </div>
+            </div>
+
+            <!-- Hourly Forecast Scroll Strip -->
+            <div class="forecast-section">
+              <div class="section-label-row">
+                <span>未來逐時氣溫預報 (24H)</span>
+                <span>滑動查看 ➔</span>
+              </div>
+              <div class="hourly-scroll-strip" id="hourly-strip">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+
+            <!-- 5-Day Outlook -->
+            <div class="forecast-section">
+              <div class="section-label-row">
+                <span>未來五天天氣概況</span>
+                <span>展望預測</span>
+              </div>
+              <div class="daily-outlook-list" id="daily-outlook-list">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-card" role="contentinfo">
+      <div class="footer-left">
+        <a href="https://github.com/davidlo3917/0914_PersonalPage" target="_blank" rel="noopener noreferrer" class="footer-repo-link" id="repo-external-link">
+          <span>📦</span>
+          <span>GitHub: davidlo3917/0914_PersonalPage</span>
+        </a>
+      </div>
+      <div class="footer-credits">
+        <span>© 2026 David Lo • 國立中興大學 AIIS • Crafted with Modern Glassmorphism & Vanilla Web Tech</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Application Scripts -->
+  <script src="js/effects.js"></script>
+  <script src="js/datetime.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
